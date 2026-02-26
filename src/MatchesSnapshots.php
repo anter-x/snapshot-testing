@@ -6,6 +6,7 @@ namespace KigaRoo\SnapshotTesting;
 
 use KigaRoo\SnapshotTesting\Driver\CsvDriver;
 use KigaRoo\SnapshotTesting\Driver\JsonDriver;
+use KigaRoo\SnapshotTesting\Driver\TextDriver;
 use KigaRoo\SnapshotTesting\Driver\XmlDriver;
 use KigaRoo\SnapshotTesting\Wildcard\Wildcard;
 use PHPUnit\Framework\Assert;
@@ -84,6 +85,14 @@ trait MatchesSnapshots
     public function assertMatchesCsvSnapshot(string $actual, array $wildcards = [], string $fieldSeparator = ';', string $fieldEnclosure = '"') : void
     {
         $this->doSnapshotAssertion($actual, new CsvDriver($fieldSeparator, $fieldEnclosure), $wildcards);
+    }
+
+    /**
+     * @param Wildcard[] $wildcards
+     */
+    public function assertMatchesTextSnapshot(string $actual, array $wildcards = []): void
+    {
+        $this->doSnapshotAssertion($actual, new TextDriver(), $wildcards);
     }
 
     /**
